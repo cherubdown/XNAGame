@@ -17,10 +17,11 @@ namespace XNAGame
     public class Game : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public static SpriteBatch spriteBatch;
         KeyboardState oldKeyboardState;
 
         Edgar edgar;    // why can you declare an abstract class?
+        Locke locke;
 
         public Game()
         {
@@ -40,7 +41,7 @@ namespace XNAGame
         {
             // TODO: Add your initialization logic here
             edgar = new Edgar(new Vector2(50f, 50f));
-
+            locke = new Locke(new Vector2(500f, 50f));
 
             base.Initialize();
             oldKeyboardState = Keyboard.GetState();
@@ -57,7 +58,8 @@ namespace XNAGame
 
             // TODO: use this.Content to load your game content here
             //spriteTexture = Content.Load<Texture2D>("Edgar-1");
-            edgar.Load(Content);
+            edgar.Load(Content, "Edgar");
+            locke.Load(Content, "Locke");
         }
 
         /// <summary>
@@ -83,6 +85,8 @@ namespace XNAGame
 
             // TODO: Add your update logic here
             ToggleFullScreen();
+            edgar.Update(gameTime);
+            locke.Update(gameTime);
             
             base.Update(gameTime);
         }
@@ -99,7 +103,9 @@ namespace XNAGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+            locke.Draw(spriteBatch);
             edgar.Draw(spriteBatch);
+            
             spriteBatch.End();
 
             base.Draw(gameTime);

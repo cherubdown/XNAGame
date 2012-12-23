@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Locke.cs" />
     <Compile Include="Edgar.cs" />
     <Compile Include="GameUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

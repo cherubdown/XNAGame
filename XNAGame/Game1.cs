@@ -16,19 +16,18 @@ namespace XNAGame
     /// </summary>
     public class Game : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         public static SpriteBatch spriteBatch;
         KeyboardState oldKeyboardState;
 
-        Edgar edgar;    // why can you declare an abstract class?
-        Locke locke;
+        Paddle paddle1;
+        Paddle paddle2;
 
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-
         }
 
         /// <summary>
@@ -40,8 +39,9 @@ namespace XNAGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            edgar = new Edgar(new Vector2(50f, 50f));
-            locke = new Locke(new Vector2(500f, 50f));
+
+            paddle1 = new Paddle(Paddle.Player.Player1);
+            paddle2 = new Paddle(Paddle.Player.Player2);
 
             base.Initialize();
             oldKeyboardState = Keyboard.GetState();
@@ -57,9 +57,8 @@ namespace XNAGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            //spriteTexture = Content.Load<Texture2D>("Edgar-1");
-            edgar.Load(Content, "Edgar");
-            locke.Load(Content, "Locke");
+            paddle1.Load(GraphicsDevice, Content, "Player1");
+            paddle2.Load(GraphicsDevice, Content, "Player2");
         }
 
         /// <summary>
@@ -85,8 +84,8 @@ namespace XNAGame
 
             // TODO: Add your update logic here
             ToggleFullScreen();
-            edgar.Update(gameTime);
-            locke.Update(gameTime);
+            paddle1.Update(gameTime);
+            paddle2.Update(gameTime);
             
             base.Update(gameTime);
         }
@@ -103,9 +102,8 @@ namespace XNAGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            locke.Draw(spriteBatch);
-            edgar.Draw(spriteBatch);
-            
+            paddle1.Draw(spriteBatch);
+            paddle2.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

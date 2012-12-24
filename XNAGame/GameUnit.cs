@@ -45,18 +45,18 @@ namespace XNAGame
             }
         }
 
-        public void Load(ContentManager Content, string name)
+        protected void Load(ContentManager Content)
         {
-            SpriteTexture = Content.Load<Texture2D>("i-am-error");
-            Name = name;
             Size = new Rectangle(0, 0, (int)(SpriteTexture.Width * scale), (int)(SpriteTexture.Height * scale));
         }
+
         public void Draw(SpriteBatch batch)
         {
             batch.Draw(SpriteTexture, Position, new Rectangle(0, 0, SpriteTexture.Width, SpriteTexture.Height),
                 Color.White, 0.0f, Vector2.Zero, scale, SpriteEffects.None, 0);
         }
-        public void Update(GameTime gameTime)
+
+        protected void Update(GameTime gameTime)
         {
             Position += Speed * Direction * (float)(gameTime.ElapsedGameTime.TotalSeconds);
         }
